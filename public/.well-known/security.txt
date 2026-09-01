@@ -1,0 +1,6 @@
+# Vulnerability disclosure policy for vibexsoft.com (RFC 9116)
+Contact: mailto:security@vibexsoft.com
+Expires: 2027-09-01T00:00:00.000Z
+Preferred-Languages: en, ru
+Canonical: https://vibexsoft.com/.well-known/security.txt
+Policy: https://vibexsoft.com/terms

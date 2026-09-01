@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax + preflight checks
+        run: |
+          node --check server.js
+          node --check public/assets/app.js
+          node scripts/check.js
+      - name: Smoke test (server boots and serves security headers)
+        run: |
+          PORT=8123 ENFORCE_CANONICAL=false node server.js &
+          for i in $(seq 1 40); do curl -sf http://127.0.0.1:8123/healthz && break; sleep 0.25; done
+          curl -sI http://127.0.0.1:8123/ | grep -qi 'content-security-policy'
+          curl -sI http://127.0.0.1:8123/ | grep -qi 'x-frame-options: DENY'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8123/../server.js)" = "404"
