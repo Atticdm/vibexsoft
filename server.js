@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * VibeX Soft — статический сайт на нулевых зависимостях.
+ * vibexsoft.com — a static site with zero dependencies.
  *
- * Почему не Express/Nginx: у сайта нет ни одного динамического маршрута,
- * а любая npm-зависимость — это цепочка поставки, которую надо патчить.
- * Ноль зависимостей = ноль CVE и воспроизводимая сборка.
+ * Why not Express/Nginx: the site has no dynamic routes at all, and every npm
+ * dependency is a supply chain someone has to keep patched.
+ * Zero dependencies = zero CVEs and a reproducible build.
  */
 
 const http = require('node:http');
@@ -16,9 +16,9 @@ const { createHash } = require('node:crypto');
 
 const ROOT = path.join(__dirname, 'public');
 const PORT = Number(process.env.PORT) || 8080;
-const SITE_ORIGIN = (process.env.SITE_ORIGIN || 'https://vibexsoft.com').replace(/\/+$/, '');
+const SITE_ORIGIN = (process.env.SITE_ORIGIN || 'https://www.vibexsoft.com').replace(/\/+$/, '');
 const CANONICAL_HOST = new URL(SITE_ORIGIN).host;
-// Локальная разработка не должна редиректить сама на себя.
+// Local development must not redirect to itself.
 const ENFORCE_CANONICAL = process.env.ENFORCE_CANONICAL !== 'false';
 
 const MIME = {
@@ -40,16 +40,16 @@ const MIME = {
 };
 
 /**
- * Content-Security-Policy без 'unsafe-inline': весь CSS и JS вынесены
- * в отдельные файлы именно ради этого. Шрифты системные, поэтому
- * сторонних origin'ов в политике нет вообще.
+ * Content-Security-Policy without 'unsafe-inline': all CSS and JS live in
+ * separate files precisely for this. Fonts are system fonts, so the policy
+ * contains no third-party origins at all.
  */
 const CSP = [
   "default-src 'self'",
   "base-uri 'self'",
-  // sha256 инлайнового JSON-LD в index.html. При правке блока обнови хеш:
-  //   node scripts/check.js  — он посчитает и покажет актуальный.
-  "script-src 'self' 'sha256-OwGtXPaSRDVk8tcdeORNtVeoFwvBwwWWpkEnVBAXUgw='",
+  // sha256 of the inline JSON-LD in index.html. If you edit that block, refresh
+  // the hash: `node scripts/check.js` computes and prints the current one.
+  "script-src 'self' 'sha256-2OzEB3jUwDlE3NWxdndTBpuBWlYuB/ewa8M1/fQ99Eg='",
   "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",
@@ -78,7 +78,7 @@ function securityHeaders(res, { isHtml }) {
   if (isHtml) res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
 }
 
-/** Резолвит URL-путь в файл внутри ROOT либо возвращает null (в т.ч. при traversal). */
+/** Resolves a URL path to a file inside ROOT, or returns null (including on traversal). */
 function resolveFile(urlPath) {
   let decoded;
   try {
@@ -97,12 +97,12 @@ function resolveFile(urlPath) {
 
   for (const candidate of candidates) {
     const abs = path.join(ROOT, candidate);
-    // Финальная защита: путь обязан остаться внутри ROOT после нормализации.
+    // Final guard: after normalisation the path must still be inside ROOT.
     if (abs !== ROOT && !abs.startsWith(ROOT + path.sep)) continue;
     try {
       if (fs.statSync(abs).isFile()) return abs;
     } catch {
-      /* нет файла — пробуем следующий кандидат */
+      /* no such file — try the next candidate */
     }
   }
   return null;
@@ -164,7 +164,7 @@ const server = http.createServer(async (req, res) => {
       return res.end(JSON.stringify({ status: 'ok' }));
     }
 
-    // Railway терминирует TLS перед приложением, схема приезжает в заголовке.
+    // Railway terminates TLS ahead of the app; the scheme arrives in a header.
     if (ENFORCE_CANONICAL) {
       const proto = (req.headers['x-forwarded-proto'] || '').split(',')[0].trim();
       const host = (req.headers.host || '').toLowerCase().split(':')[0];
@@ -189,7 +189,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('Not Found');
   } catch (err) {
-    // Наружу — ничего кроме кода: детали ошибки только в логи.
+    // Nothing but a status code goes out: error details stay in the logs.
     console.error('[error]', err && err.stack ? err.stack : err);
     if (!res.headersSent) {
       securityHeaders(res, { isHtml: false });

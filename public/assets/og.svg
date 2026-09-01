@@ -19,9 +19,9 @@
     <rect width="64" height="64" rx="16" fill="url(#acc)"/>
     <path d="M17 20h7.6l7.4 17.4L39.4 20H47L35.8 45h-7.6z" fill="#06070b"/>
   </g>
-  <text x="184" y="196" font-family="Inter, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#eceef5">VibeX<tspan fill="#6f7789">Soft</tspan></text>
-  <text x="96" y="330" font-family="Inter, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="#eceef5" letter-spacing="-2">We build AI-native software</text>
-  <text x="96" y="406" font-family="Inter, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="url(#acc)" letter-spacing="-2">that actually ships.</text>
-  <text x="96" y="490" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#a6adc0">Independent product studio · Florida, USA · vibexsoft.com</text>
+  <text x="184" y="196" font-family="Inter, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#eceef5">VibeX<tspan fill="#6f7789"> LLC</tspan></text>
+  <text x="96" y="330" font-family="Inter, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="#eceef5" letter-spacing="-2">An umbrella company for</text>
+  <text x="96" y="406" font-family="Inter, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="url(#acc)" letter-spacing="-2">AI-native startups.</text>
+  <text x="96" y="490" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#a6adc0">United States · vibexsoft.com</text>
   <rect x="96" y="536" width="120" height="4" rx="2" fill="url(#acc)"/>
 </svg>

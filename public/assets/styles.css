@@ -1,5 +1,5 @@
 /* ============================================================
-   VibeX Soft — design tokens
+   VibeX — design tokens
    ============================================================ */
 :root {
   --bg: #06070b;
@@ -34,9 +34,9 @@
 *::after { box-sizing: border-box; }
 
 html {
-  -webkit-text-size-adjust: 100%;   /* iOS Safari не должен сам раздувать шрифт в landscape */
+  -webkit-text-size-adjust: 100%;   /* iOS Safari must not inflate text on its own in landscape */
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;         /* якоря не должны уезжать под липкую шапку */
+  scroll-padding-top: 88px;         /* anchors must not slide under the sticky header */
 }
 
 body {
@@ -49,7 +49,7 @@ body {
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: clip;                 /* страховка от горизонтального скролла на мобильных */
+  overflow-x: clip;                 /* insurance against horizontal scroll on mobile */
 }
 
 img, svg, video { max-width: 100%; height: auto; display: block; }
@@ -147,7 +147,7 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 48px;                 /* тап-таргет >= 44px по WCAG 2.5.8 */
+  min-height: 48px;                 /* tap target >= 44px, WCAG 2.5.8 */
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
   border: 1px solid var(--border-strong);
@@ -222,7 +222,6 @@ p:last-child { margin-bottom: 0; }
   font-size: 0.85rem;
   font-weight: 800;
 }
-.logo__sub { color: var(--text-faint); font-weight: 500; }
 
 .nav { display: flex; align-items: center; gap: 0.35rem; }
 .nav__link {
@@ -235,31 +234,6 @@ p:last-child { margin-bottom: 0; }
 .nav__link:hover { color: var(--text); background: var(--surface-hover); }
 
 .header__actions { display: flex; align-items: center; gap: 0.5rem; }
-
-.lang {
-  display: inline-flex;
-  padding: 3px;
-  gap: 2px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
-}
-.lang__btn {
-  min-width: 40px;
-  min-height: 34px;
-  padding-inline: 0.6rem;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text-faint);
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 640;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: color 0.18s var(--ease), background-color 0.18s var(--ease);
-}
-.lang__btn[aria-pressed="true"] { background: var(--surface-hover); color: var(--text); }
 
 .burger {
   display: none;
@@ -385,7 +359,7 @@ p:last-child { margin-bottom: 0; }
 }
 
 .card {
-  min-width: 0;                     /* без этого длинные слова рвут grid на мобильных */
+  min-width: 0;                     /* without this, long words tear the grid on mobile */
   position: relative;
   padding: clamp(1.4rem, 3vw, 1.9rem);
   border: 1px solid var(--border);
@@ -438,11 +412,45 @@ p:last-child { margin-bottom: 0; }
   transition: border-color 0.22s var(--ease), transform 0.22s var(--ease);
 }
 .work__item:hover { border-color: var(--border-strong); transform: translateY(-2px); }
-.work__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.work__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  flex-wrap: wrap;
+}
 .work__name { font-size: 1.2rem; font-weight: 620; letter-spacing: -0.03em; }
-.work__link { font-size: 0.85rem; color: var(--accent-2); white-space: nowrap; }
-.work__link:hover { text-decoration: underline; }
 .work__desc { color: var(--text-dim); font-size: 0.95rem; }
+
+/* Stage badge on a venture card. Status is a fact, so it gets its own colour. */
+.status {
+  flex: none;
+  align-self: center;
+  font-size: 0.72rem;
+  font-weight: 640;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.status--building {
+  color: #c4b5ff;
+  border-color: rgba(124, 92, 255, 0.45);
+  background: rgba(124, 92, 255, 0.12);
+}
+.status--early {
+  color: #8ce7f7;
+  border-color: rgba(41, 211, 238, 0.4);
+  background: rgba(41, 211, 238, 0.1);
+}
+.status--oss {
+  color: #86e3bd;
+  border-color: rgba(52, 211, 153, 0.38);
+  background: rgba(52, 211, 153, 0.1);
+}
 
 /* Process */
 .steps { counter-reset: step; display: grid; gap: 1px; background: var(--border);
@@ -506,7 +514,7 @@ p:last-child { margin-bottom: 0; }
 .footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.15rem; }
 .footer__list a {
   display: inline-block;
-  padding-block: 0.4rem;            /* тап-таргет в футере на мобильных */
+  padding-block: 0.4rem;            /* tap target in the footer on mobile */
   color: var(--text-dim);
   font-size: 0.92rem;
 }
@@ -557,7 +565,7 @@ p:last-child { margin-bottom: 0; }
 /* ============================================================
    Responsive
    ============================================================ */
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .burger { display: inline-flex; }
 
   .nav {
@@ -573,7 +581,7 @@ p:last-child { margin-bottom: 0; }
     border-bottom: 1px solid var(--border);
     max-height: calc(100dvh - 68px);
     overflow-y: auto;
-    /* Закрытое меню полностью убрано из потока и из a11y-дерева. */
+    /* A closed menu is removed from the flow and from the a11y tree entirely. */
     display: none;
   }
   .nav[data-open="true"] { display: flex; }
@@ -594,7 +602,8 @@ p:last-child { margin-bottom: 0; }
 @media (max-width: 480px) {
   .hero__actions .btn { width: 100%; }
   .footer__bottom { justify-content: flex-start; }
-  .work__top { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .work__top { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .status { align-self: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {

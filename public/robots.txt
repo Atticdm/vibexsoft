@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /healthz
 
-Sitemap: https://vibexsoft.com/sitemap.xml
+Sitemap: https://www.vibexsoft.com/sitemap.xml

@@ -1,15 +1,15 @@
-# Пиним минорную версию: :22 плавает и ломает воспроизводимость сборки.
+# Pin the minor version: :22 floats and breaks build reproducibility.
 FROM node:22.11-alpine
 
 ENV NODE_ENV=production
 WORKDIR /app
 
-# Зависимостей нет — копируем только исходники сайта.
+# There are no dependencies — copy only the site sources.
 COPY package.json server.js ./
 COPY public ./public
 COPY scripts ./scripts
 
-# node:alpine уже содержит непривилегированного пользователя `node`.
+# node:alpine already ships an unprivileged `node` user.
 USER node
 
 EXPOSE 8080
