@@ -513,8 +513,10 @@ p:last-child { margin-bottom: 0; }
 }
 .footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.15rem; }
 .footer__list a {
-  display: inline-block;
-  padding-block: 0.4rem;            /* tap target in the footer on mobile */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;                 /* tap target >= 44px, WCAG 2.5.8 */
+  padding-block: 0.35rem;
   color: var(--text-dim);
   font-size: 0.92rem;
 }
@@ -530,6 +532,13 @@ p:last-child { margin-bottom: 0; }
   color: var(--text-faint);
   font-size: 0.85rem;
 }
+.footer__bottom a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-dim);
+}
+.footer__bottom a:hover { color: var(--text); }
 
 /* ============================================================
    Legal / content pages
