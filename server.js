@@ -165,6 +165,8 @@ const server = http.createServer(async (req, res) => {
     }
 
     // Railway terminates TLS ahead of the app; the scheme arrives in a header.
+    // Any non-canonical host is 301ed to SITE_ORIGIN, whichever way canonical
+    // points (apex or www) — do not hardcode the direction.
     if (ENFORCE_CANONICAL) {
       const proto = (req.headers['x-forwarded-proto'] || '').split(',')[0].trim();
       const host = (req.headers.host || '').toLowerCase().split(':')[0];
@@ -173,7 +175,7 @@ const server = http.createServer(async (req, res) => {
         if (proto && proto !== 'https') {
           return redirect(res, `${SITE_ORIGIN}${url.pathname}${url.search}`, 308);
         }
-        if (host === `www.${CANONICAL_HOST}`) {
+        if (host !== CANONICAL_HOST) {
           return redirect(res, `${SITE_ORIGIN}${url.pathname}${url.search}`, 301);
         }
       }

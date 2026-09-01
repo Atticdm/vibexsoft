@@ -357,6 +357,11 @@ p:last-child { margin-bottom: 0; }
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 }
+/* Four-card sections read as a 2x2 block on wide screens; auto-fit would
+   leave a lone orphan card on the second row. */
+@media (min-width: 861px) {
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+}
 
 .card {
   min-width: 0;                     /* without this, long words tear the grid on mobile */
@@ -400,6 +405,9 @@ p:last-child { margin-bottom: 0; }
 
 /* Work cards */
 .work { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+@media (min-width: 861px) {
+  .work { grid-template-columns: repeat(2, 1fr); }
+}
 .work__item {
   min-width: 0;
   display: flex;
@@ -584,10 +592,11 @@ p:last-child { margin-bottom: 0; }
     align-items: stretch;
     gap: 0;
     padding: 0.5rem var(--gutter) 1.5rem;
-    background: color-mix(in srgb, var(--bg) 97%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    /* Opaque, not translucent: backdrop-filter is unreliable, and a menu you
+       can read the page through is a menu you cannot read. */
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.9);
     max-height: calc(100dvh - 68px);
     overflow-y: auto;
     /* A closed menu is removed from the flow and from the a11y tree entirely. */
