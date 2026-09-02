@@ -56,3 +56,27 @@ The Open Graph image is generated from `public/assets/og.svg`; if you change it,
 ## Deploy
 
 Railway builds the `Dockerfile` and watches `/healthz`. A push to `main` deploys.
+
+## DNS and TLS
+
+Two different hosts serve two different things, and both need their own certificate.
+
+| Host | Served by | DNS record |
+|---|---|---|
+| `www.vibexsoft.com` (canonical) | Railway — this repo | `CNAME www → 0gen3qsm.up.railway.app` **and** `TXT _railway-verify.www → railway-verify=<token>` |
+| `vibexsoft.com` (apex) | GitHub Pages — `Atticdm/vibexsoft-apex`, a redirect stub to www | four `A` records → `185.199.108-111.153` |
+
+The apex is on GitHub Pages only because the registrar (GoDaddy) supports neither CNAME
+flattening nor ALIAS records, so an apex CNAME to Railway is impossible. If the zone ever moves
+to Cloudflare, the apex can go straight to Railway and the stub repo can be deleted.
+
+**The `TXT _railway-verify.*` record is not optional.** Railway verifies domain ownership through
+it before it will route traffic *or* issue a certificate: with only the `CNAME` in place the host
+answers `404 {"status":"error","message":"Application not found"}` over the default
+`*.up.railway.app` certificate, so browsers show a certificate-name error rather than the site.
+The current token is shown in Railway → service → Settings → Networking next to the domain.
+
+GitHub Pages needs no ownership record — just the `A` records — but its certificate is only
+requested when the custom domain is (re-)saved. If `https://vibexsoft.com` ever serves a
+`*.github.io` certificate, remove and re-add the custom domain in the `vibexsoft-apex` repo
+(Settings → Pages), wait for the certificate, then tick **Enforce HTTPS**.
