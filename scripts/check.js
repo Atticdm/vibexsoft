@@ -29,6 +29,16 @@ function walk(dir) {
 const files = walk(PUBLIC);
 const html = files.filter((f) => f.endsWith('.html'));
 
+/**
+ * Ownership-verification tokens are .html by name only: a search engine or a
+ * certificate authority hands you a fixed string and then fetches it back
+ * byte for byte. Giving one a <title> would break the very thing it is for,
+ * so they are excluded from the page rules below — but not from the CSP and
+ * secret scans, which cost nothing and should apply to anything we serve.
+ */
+const isVerificationToken = (f) => /^google[0-9a-f]{8,}\.html$/.test(path.basename(f));
+const pages = html.filter((f) => !isVerificationToken(f));
+
 /* 1. Inline scripts must have a sha256 in the CSP. */
 for (const file of html) {
   const src = fs.readFileSync(file, 'utf8');
@@ -108,7 +118,7 @@ if (!expires) {
 }
 
 /* 7. Every page must have a title, a description and a canonical. */
-for (const file of html) {
+for (const file of pages) {
   if (path.basename(file) === '404.html') continue;
   const src = fs.readFileSync(file, 'utf8');
   const rel = path.relative(ROOT, file);
@@ -123,4 +133,4 @@ if (errors.length) {
   for (const e of errors) console.error(`  • ${e}`);
   process.exit(1);
 }
-console.log(`OK    files checked: ${files.length}, pages: ${html.length}, no problems.`);
+console.log(`OK    files checked: ${files.length}, pages: ${pages.length}, no problems.`);
