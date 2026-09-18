@@ -168,7 +168,8 @@ button:focus-visible {
   max-width: 30em;
 }
 
-/* The company record, stated once in the first screen and again in full below. */
+/* The only place the registry facts appear. A verifier gets them at a glance
+   in the first screen; the Contact section explains what the number is for. */
 .stamp {
   font-family: var(--display);
   font-weight: 700;
@@ -195,6 +196,13 @@ button:focus-visible {
   text-transform: uppercase;
   color: var(--muted);
   padding-bottom: 18px;
+}
+
+.section__lead {
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.5;
+  max-width: 44em;
+  padding-bottom: clamp(24px, 3vw, 36px);
 }
 
 .product {
@@ -241,7 +249,9 @@ button:focus-visible {
 
 .points {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  /* Two columns, not three: these four points carry a paragraph each, and
+     auto-fitting them at 260px leaves the fourth stranded on its own row. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: clamp(24px, 3vw, 44px);
   border-top: 3px solid var(--ink);
   padding-top: clamp(24px, 3vw, 34px);
@@ -262,38 +272,7 @@ button:focus-visible {
   max-width: 34em;
 }
 
-/* ---------------------------------------------------------------- record */
-
-.record {
-  border-top: 3px solid var(--ink);
-}
-
-.record__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px 24px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.record__key {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  width: clamp(150px, 21vw, 290px);
-  flex: none;
-  align-self: center;
-}
-
-.record__value {
-  font-size: 17px;
-  font-variant-numeric: tabular-nums;
-}
-
-.record__note {
+.note {
   font-size: 14px;
   color: var(--muted);
   max-width: 46em;
@@ -471,8 +450,7 @@ button:focus-visible {
     text-align: left;
   }
 
-  .product__name,
-  .record__key {
+  .product__name {
     width: 100%;
   }
 
