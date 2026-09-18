@@ -1,10 +1,17 @@
 {
   "name": "VibeX LLC",
   "short_name": "VibeX",
-  "description": "An umbrella company for AI-native startups, United States.",
+  "description": "A Florida company that develops and operates its own software products.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#06070b",
-  "theme_color": "#06070b",
-  "icons": [{ "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+  "background_color": "#f2f1ed",
+  "theme_color": "#f2f1ed",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }

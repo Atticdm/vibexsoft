@@ -7,9 +7,10 @@
 <meta name="description" content="Terms governing the use of vibexsoft.com, an informational website operated by VibeX LLC, United States.">
 <link rel="canonical" href="https://www.vibexsoft.com/terms">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#06070b">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#f2f1ed">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/styles.css">
 <script src="/assets/app.js" defer></script>
 </head>
@@ -17,8 +18,10 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="header">
   <div class="container header__inner">
-    <a class="logo" href="/"><span class="logo__mark" aria-hidden="true">V</span><span>VibeX</span></a>
-    <div class="header__actions"><a class="btn btn--ghost" href="/">← Home</a></div>
+    <a class="logo" href="/">VibeX</a>
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link" href="/">← Home</a>
+    </nav>
   </div>
 </header>
 
@@ -94,10 +97,10 @@
 </main>
 
 <footer class="footer">
-  <div class="container">
-    <div class="footer__bottom">
-      <span>© <span data-year>2026</span> VibeX LLC · United States</span>
-      <span class="meta"><a href="/privacy">Privacy Policy</a></span>
+  <div class="container footer__inner">
+    <span>© <span data-year>2026</span> VibeX LLC</span>
+    <div class="footer__links">
+      <a href="/privacy">Privacy Policy</a>
     </div>
   </div>
 </footer>

@@ -2,22 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Page not found — VibeX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — VibeX LLC</title>
+<meta name="description" content="This page does not exist on vibexsoft.com.">
 <meta name="robots" content="noindex, follow">
-<meta name="theme-color" content="#06070b">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#f2f1ed">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
-<main class="container notfound">
-  <div>
-    <p class="eyebrow eyebrow--center">Error 404</p>
-    <h1>Page not found</h1>
-    <p class="lead">This page does not exist here. The link may be out of date.</p>
-    <p><a class="btn btn--primary" href="/">Go to homepage</a></p>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="logo" href="/">VibeX</a>
+    <nav class="nav" aria-label="Main">
+      <a class="nav__link" href="/">← Home</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container">
+    <h1 class="hero__title">Not<br>found.</h1>
+    <div class="hero__sub">
+      <p class="hero__lead">There is no page at this address. The link that brought you here is probably out of date.</p>
+      <p class="stamp">Error 404</p>
+    </div>
+    <a class="cta" href="/">Go to the homepage</a>
   </div>
 </main>
+
 </body>
 </html>
