@@ -41,15 +41,15 @@ const MIME = {
 
 /**
  * Content-Security-Policy without 'unsafe-inline': all CSS and JS live in
- * separate files precisely for this. Fonts are system fonts, so the policy
- * contains no third-party origins at all.
+ * separate files precisely for this. Fonts are self-hosted .woff2 under
+ * font-src 'self', so the policy still contains no third-party origins.
  */
 const CSP = [
   "default-src 'self'",
   "base-uri 'self'",
   // sha256 of the inline JSON-LD in index.html. If you edit that block, refresh
   // the hash: `node scripts/check.js` computes and prints the current one.
-  "script-src 'self' 'sha256-2OzEB3jUwDlE3NWxdndTBpuBWlYuB/ewa8M1/fQ99Eg='",
+  "script-src 'self' 'sha256-aFBemO/McU1G6WCQL1BANfljfhovpVnMB9F5BUd/TUU='",
   "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",

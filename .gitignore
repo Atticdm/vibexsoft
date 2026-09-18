@@ -7,3 +7,6 @@ node_modules/
 dist/
 coverage/
 .railway/
+
+# Local tooling state, not part of the site.
+.serena/
